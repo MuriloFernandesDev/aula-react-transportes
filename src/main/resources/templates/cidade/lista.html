@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}"
+>
+  <head>
+    <title th:text="${titulo}">Insert title here</title>
+  </head>
+  <body>
+    <section layout:fragment="conteudo">
+      <div class="app-content">
+        <div class="app-titulo">
+          <div>
+            <h3 th:text="${titulo}">
+              Título <i class="fa fa-tachometer" aria-hidden="true"></i>
+            </h3>
+          </div>
+          <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+              <i class="fa fa-home" aria-hidden="true"></i>
+            </li>
+            <li class="breadcrumb-item"><a th:href="@{/home}">Dashboard</a></li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="listagem">
+              <div class="row justify-content-center">
+                <form th:action="@{/cidade/lista}" class="">
+                  <div class="row mb-3">
+                    <label for="filtro" class="col-sm-1 col-form-label"
+                      >Filtro:</label
+                    >
+                    <div class="col-xs-11 col-sm-11 col-md-6 col-log-6">
+                      <input
+                        type="text"
+                        id="keyword"
+                        name="keyword"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-log-4">
+                      <button
+                        type="submit"
+                        class="btn btn-primary form-control"
+                      >
+                        Pesquisar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <div id="no_more_table">
+                  <table
+                    id="tableCidade"
+                    class="table table-striped table-bordered table-hover table-collapse cf"
+                    style="width: 100%"
+                  >
+                    <thead class="cf">
+                      <tr class="p-3 mb-2 bg-success text-white">
+                        <th
+                          style="
+                            width: 50px;
+                            font-weight: bold;
+                            text-align: center;
+                          "
+                        >
+                          Id
+                        </th>
+                        <th
+                          style="
+                            width: 50px;
+                            font-weight: bold;
+                            text-align: center;
+                          "
+                        >
+                          Código Cidade
+                        </th>
+                        <th
+                          style="
+                            width: 50px;
+                            font-weight: bold;
+                            text-align: center;
+                          "
+                        >
+                          Nome
+                        </th>
+                        <th
+                          style="
+                            width: 50px;
+                            font-weight: bold;
+                            text-align: center;
+                          "
+                        >
+                          Cidade
+                        </th>
+                        <th
+                          style="
+                            width: 50px;
+                            font-weight: bold;
+                            text-align: center;
+                          "
+                        >
+                          Ações
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="cidade : ${cidade}">
+                        <td
+                          data-label="Id"
+                          style="width: 50px; text-align: center"
+                          th:text="${cidade.idCidade}"
+                        ></td>
+                        <td
+                          data-label="Código"
+                          style="width: 50px; text-align: center"
+                          th:text="${cidade.codCidade}"
+                        ></td>
+                        <td
+                          data-label="Nome"
+                          style="width: 50px; text-align: center"
+                          th:text="${cidade.nomeCidade}"
+                        ></td>
+                        <td
+                          data-label="Cidade"
+                          style="width: 50px; text-align: center"
+                          th:text="${cidade.cidade.nomeCidade}"
+                        ></td>
+                        <td data-label="Ação" class="text-center">
+                          <a
+                            id="btnUpdate"
+                            type="button"
+                            class="btn btn-info btn-sm"
+                            title="Alterar dados do cidade selecionado"
+                            th:href="@{/cidade/alterar/{id}(id=${cidade.idCidade})}"
+                          >
+                            <i class="fa fa-pencil"></i>
+                          </a>
+                          <a
+                            id="btnExcluir"
+                            type="button"
+                            class="btn btn-danger btn-sm"
+                            title="Excluir dados do cidade selecionado"
+                            th:href="@{/cidade/excluir/{id}(id=${cidade.idCidade})}"
+                          >
+                            <i class="fa fa-trash"></i>
+                          </a>
+                          <a
+                            id="btnConsultar"
+                            class="btn btn-success btn-sm"
+                            type="button"
+                            title="Consultar dados do cidade selecionado"
+                            th:href="@{/cidade/consultar-por-id/{id}(id=${cidade.idCidade})}"
+                          >
+                            <i class="fa fa-search-plus"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                      <a
+                        class="page-link"
+                        href="#"
+                        tabindex="-1"
+                        aria-disabled="true"
+                        >Previous</a
+                      >
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <a
+                  th:href="@{/cidade/cadastro}"
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                  >Novo Cidade</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
